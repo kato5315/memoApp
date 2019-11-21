@@ -11,10 +11,15 @@ Rails.application.routes.draw do
   # # メモ削除
   # delete 'meos/:id' , to: 'memos#destroy'
 
-  resources :memos, only: %i(index create update show destroy) do
-    resources :comments, only: %i(index create update show destroy)
-  end
+  # resources :memos, only: %i(index create update show destroy) do
+  #   resources :comments, only: %i(index create update show destroy)
+  # end
 
+  namespace :api do
+    resources :memos do
+      resources :comments, only: [:create, :update, :destroy]
+    end
+end
   # get 'memos/:id/comments' , to: 'comments#index'
 
   # #コメント一覧取得
